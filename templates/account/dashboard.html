@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+控制面板
+{% endblock %}
+
+{% block content %}
+    <h1>控制面板</h1>
+    {% with total_images_created=request.user.images_created.count %}
+        <p>欢迎来到控制面板,你已经分享了{{ total_images_created }}图片到本站</p>
+    {% endwith %}
+    <p>将下面的按钮拖动到书签工具栏上，将其他网站的图片添加到书签中 <a href="javascript:{% include 'images/templates/bookmarklet_launcher.js' %}" class="button">添加书签</a> </p>
+    <p>你可以点击<a href="{% url 'account:edit' %}">编辑个人信息</a>或者点击<a href="{% url 'account:password_change' %}">修改密码</a> </p>
+    <h2>发生了什么？</h2>
+    <div id="action-list">
+        {% for action in actions %}
+            {% include 'actions/action/detail.html' %}
+        {% endfor %}
+    </div>
+{% endblock %}
